@@ -179,22 +179,31 @@
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="my_init\nvic.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="my_init\nvic.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="my_init\nvmctrl.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="my_init\nvmctrl.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="my_init\nvm_userrow.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="my_init\port.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="my_init\port.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="nonsecure_call.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="nonsecure_call.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="trustzone\trustzone_manager.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="trustzone\trustzone_manager.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="trustzone\trustzone_veneer.c">

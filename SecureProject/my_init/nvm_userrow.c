@@ -24,7 +24,6 @@
 // DOM-IGNORE-END
 
 #include "sam.h"
-#include "trustzone_manager.h"
 
 /* NVM User Row definitions
  * All values are factory settings, except AS, ANSC, DS, RS
@@ -101,8 +100,15 @@
    (0x0 << PAC_NONSECC_TRAM_Pos))
 
 
-
+#if defined(__GNUC__) /* GCC */
 /* "userrowsec" section should be correctly defined in your linker file */
 __attribute__((section(".userrowsec"))) const uint32_t nvm_user_row[] =
+#elif defined(__ICCARM__) /* IAR EWARM */
+/* "nvm_user_page" section should be correctly defined in your linker file */
+__root const uint32_t nvm_user_row[] @ ".nvm_user_page" =
+#else
+#warning "This IDE can't support USER Row fuse programming."
+#endif
     {NVM_USER_WORD_0, NVM_USER_WORD_1, NVM_USER_WORD_2, NVM_USER_WORD_3,
      NVM_USER_WORD_4, NVM_USER_WORD_5, NVM_USER_WORD_6};
+

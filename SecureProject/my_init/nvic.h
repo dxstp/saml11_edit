@@ -23,17 +23,12 @@
  */
 // DOM-IGNORE-END
 
-#include "sam.h"
-#include "nvmctrl.h"
+#ifndef NVIC_H_
+#define NVIC_H_
 
-// NVMCTRL register map is automatically duplicated in a Secure and Non-Secure alias
-#if (defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U))
-#define NVMCTRL_ALIAS NVMCTRL_SEC
-#else
-#define NVMCTRL_ALIAS NVMCTRL
-#endif
 
-void NVMCTRL_init(void) {
-	// see table Table 46-39 on page 1152 of datasheet for required wait states.
-	NVMCTRL_ALIAS->CTRLB.bit.RWS = 0;
-}
+
+void NVIC_init(void);
+
+
+#endif /* NVIC_H_ */

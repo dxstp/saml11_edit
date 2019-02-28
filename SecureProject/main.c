@@ -24,15 +24,21 @@
 // DOM-IGNORE-END
 
 #include "sam.h"
-#include "nonsecure_call.h"
+#include "trustzone/nonsecure_call.h"
+#include "nvmctrl.h"
 
 
 int main(void) {
 
+	NVMCTRL_init();
 
 	NonSecureCall();
 
     while (1) {
     }
+}
+
+void HardFault_Handler(void) {
+	while(1);
 }
 

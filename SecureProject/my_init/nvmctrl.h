@@ -28,13 +28,6 @@
 #ifndef NVMCTRL_H_
 #define NVMCTRL_H_
 
-// NVMCTRL register map is automatically duplicated in a Secure and Non-Secure alias
-#if (defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U))
-#define NVMCTRL_ALIAS NVMCTRL_SEC
-#else
-#define NVMCTRL_ALIAS NVMCTRL
-#endif
-
 void NVMCTRL_init(void);
 
 

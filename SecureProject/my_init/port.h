@@ -23,8 +23,12 @@
  */
 // DOM-IGNORE-END
 
-#ifndef _TRUSTZONE_MANAGER_H_
-#define _TRUSTZONE_MANAGER_H_
+
+#ifndef PORT_H_
+#define PORT_H_
+
+void PORT_init(void);
 
 
-#endif // _TRUSTZONE_MANAGER_H_INCLUDED
+
+#endif /* PORT_H_ */
