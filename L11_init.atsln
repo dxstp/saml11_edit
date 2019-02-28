@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Atmel Studio Solution File, Format Version 11.00
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "SecureProject", "SecureProject.cproj", "{DCE6C7E3-EE26-4D79-826B-08594B9AD897}"
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "SecureProject", "SecureProject\SecureProject.cproj", "{DCE6C7E3-EE26-4D79-826B-08594B9AD897}"
+EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "NonSecureProject", "NonSecureProject\NonSecureProject.cproj", "{F1CDA67F-907F-44B9-A273-08CCF98EB090}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{DCE6C7E3-EE26-4D79-826B-08594B9AD897}.Debug|ARM.Build.0 = Debug|ARM
 		{DCE6C7E3-EE26-4D79-826B-08594B9AD897}.Release|ARM.ActiveCfg = Release|ARM
 		{DCE6C7E3-EE26-4D79-826B-08594B9AD897}.Release|ARM.Build.0 = Release|ARM
+		{F1CDA67F-907F-44B9-A273-08CCF98EB090}.Debug|ARM.ActiveCfg = Debug|ARM
+		{F1CDA67F-907F-44B9-A273-08CCF98EB090}.Debug|ARM.Build.0 = Debug|ARM
+		{F1CDA67F-907F-44B9-A273-08CCF98EB090}.Release|ARM.ActiveCfg = Release|ARM
+		{F1CDA67F-907F-44B9-A273-08CCF98EB090}.Release|ARM.Build.0 = Release|ARM
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
