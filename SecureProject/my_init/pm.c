@@ -24,9 +24,11 @@
 // DOM-IGNORE-END
 
 #include "sam.h"
-#include "port.h"
+#include "pm.h"
 
-void PORT_init(void) {
-	// configure one or more I/O pins as secured or non-secured.
-	PORT_SEC->Group[0].NONSEC.reg = 0x00000000;
+void PM_init(void) {
+	// set performance level to PL2 for maximum performance
+	PM->INTFLAG.reg = PM_INTFLAG_PLRDY;
+	PM->PLCFG.bit.PLSEL = PM_PLCFG_PLSEL_PL2;
+	while(PM->INTFLAG.bit.PLRDY != PM_INTFLAG_PLRDY);
 }

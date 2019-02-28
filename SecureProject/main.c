@@ -26,12 +26,20 @@
 #include "sam.h"
 #include "trustzone/nonsecure_call.h"
 #include "nvmctrl.h"
+#include "nvic.h"
+#include "pm.h"
+#include "port.h"
+#include "oscctrl.h"
 
 
 int main(void) {
 
+	PM_init();
 	NVMCTRL_init();
-
+	OSCCTRL_init();
+	NVIC_init();
+	PORT_init();
+	
 	NonSecureCall();
 
     while (1) {

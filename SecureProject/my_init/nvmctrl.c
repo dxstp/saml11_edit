@@ -34,6 +34,7 @@
 #endif
 
 void NVMCTRL_init(void) {
-	// see table Table 46-39 on page 1152 of datasheet for required wait states.
-	NVMCTRL_ALIAS->CTRLB.bit.RWS = 0;
+	// see table Table 46-40 on page 1127 of datasheet for required wait states.
+	// set wait states to 2 for maximum clock (32 MHz)
+	NVMCTRL_ALIAS->CTRLB.bit.RWS = 2;
 }

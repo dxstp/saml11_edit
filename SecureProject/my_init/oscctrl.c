@@ -24,9 +24,8 @@
 // DOM-IGNORE-END
 
 #include "sam.h"
-#include "port.h"
+#include "oscctrl.h"
 
-void PORT_init(void) {
-	// configure one or more I/O pins as secured or non-secured.
-	PORT_SEC->Group[0].NONSEC.reg = 0x00000000;
+void OSCCTRL_init(void) {
+	
 }

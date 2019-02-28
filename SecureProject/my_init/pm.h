@@ -23,10 +23,12 @@
  */
 // DOM-IGNORE-END
 
-#include "sam.h"
-#include "port.h"
 
-void PORT_init(void) {
-	// configure one or more I/O pins as secured or non-secured.
-	PORT_SEC->Group[0].NONSEC.reg = 0x00000000;
-}
+#ifndef PM_H_
+#define PM_H_
+
+void PM_init(void);
+
+
+
+#endif /* PM_H_ */
