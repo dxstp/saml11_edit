@@ -23,7 +23,6 @@
  */
 // DOM-IGNORE-END
 
-#include <stdio.h>
 #include "sam.h"
 #include "trustzone/nonsecure_call.h"
 #include "my_init/nvmctrl.h"
@@ -50,7 +49,7 @@ int main(void) {
 	SERCOM0_init();
 	print_init();
 	
-	printf("\n Hello Metal World!");
+	secure_printf("Hello Metal World!\r\n");
 	
 	NonSecureCall();
 

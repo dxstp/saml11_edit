@@ -26,6 +26,8 @@
 #ifndef PRINT_H_
 
 void print_init(void);
+void nonsec_printf(char *string, ...);
+void secure_printf(char *string, ...);
 
 #define PRINT_H_
 

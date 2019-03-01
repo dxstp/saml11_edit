@@ -45,6 +45,22 @@ void print_init(void) {
 	setbuf(stdin, NULL);
 }
 
+void nonsec_printf(char *string, ...) {
+	va_list argp;
+	fprintf(stdout, "NONSEC: ");
+	va_start(argp, string);
+	vfprintf(stdout, string, argp);
+	va_end(argp);
+}
+
+void secure_printf(char *string, ...) {
+	va_list argp;
+	fprintf(stdout, "SECURE: ");
+	va_start(argp, string);
+	vfprintf(stdout, string, argp);
+	va_end(argp);
+}
+
 int _read(int file, char *ptr, int len) {
 	int n = 0;
 
