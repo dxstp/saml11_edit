@@ -37,6 +37,10 @@ int main(void) {
 	PM_init();
 	NVMCTRL_init();
 	OSCCTRL_init();
+	clock_output_pa22(GCLK_GENCTRL_SRC_FDPLL96M);
+	//clock_output_pa22(GCLK_GENCTRL_SRC_OSC16M);
+	//clock_output_pa22(GCLK_GENCTRL_SRC_OSCULP32K);
+	
 	NVIC_init();
 	PORT_init();
 	

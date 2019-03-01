@@ -27,6 +27,7 @@
 #define OSCCTRL_H_
 
 void OSCCTRL_init(void);
+void clock_output_pa22(uint32_t source);
 
 
 
