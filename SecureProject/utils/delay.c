@@ -72,7 +72,7 @@ static uint32_t _get_cycles_for_ms(const uint16_t ms)
 	return _get_cycles_for_ms_internal(ms, CONF_CPU_FREQUENCY, CPU_FREQ_POWER);
 }
 
-static void _delay_cycles(void *const hw, uint32_t cycles)
+static void  __attribute__((noinline)) _delay_cycles(void *const hw, uint32_t cycles)
 {
 	(void)hw;
 	(void)cycles;
