@@ -23,13 +23,16 @@
  */
 // DOM-IGNORE-END
 
+#include <stdio.h>
 #include "sam.h"
 #include "trustzone/nonsecure_call.h"
-#include "nvmctrl.h"
-#include "nvic.h"
-#include "pm.h"
-#include "port.h"
-#include "oscctrl.h"
+#include "my_init/nvmctrl.h"
+#include "my_init/nvic.h"
+#include "my_init/pm.h"
+#include "my_init/port.h"
+#include "my_init/oscctrl.h"
+#include "my_init/sercom.h"
+#include "utils/print.h"
 
 
 int main(void) {
@@ -37,12 +40,17 @@ int main(void) {
 	PM_init();
 	NVMCTRL_init();
 	OSCCTRL_init();
+	
 	clock_output_pa22(GCLK_GENCTRL_SRC_FDPLL96M);
 	//clock_output_pa22(GCLK_GENCTRL_SRC_OSC16M);
 	//clock_output_pa22(GCLK_GENCTRL_SRC_OSCULP32K);
 	
 	NVIC_init();
 	PORT_init();
+	SERCOM0_init();
+	print_init();
+	
+	printf("\n Hello Metal World!");
 	
 	NonSecureCall();
 

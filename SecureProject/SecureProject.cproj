@@ -212,6 +212,12 @@
     <Compile Include="my_init\port.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="my_init\sercom.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="my_init\sercom.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="trustzone\nonsecure_call.c">
       <SubType>compile</SubType>
     </Compile>
@@ -224,10 +230,17 @@
     <Compile Include="trustzone\trustzone_veneer.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="utils\print.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="utils\print.h">
+      <SubType>compile</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Device_Startup\" />
     <Folder Include="my_init" />
+    <Folder Include="utils" />
     <Folder Include="trustzone" />
   </ItemGroup>
   <ItemGroup>

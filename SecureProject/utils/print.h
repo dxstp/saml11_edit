@@ -1,6 +1,6 @@
 // DOM-IGNORE-BEGIN
 /*
-    (c) 2019 Microchip Technology Inc. and its subsidiaries. 
+    (c) 2018 Microchip Technology Inc. and its subsidiaries. 
     
     Subject to your compliance with these terms, you may use Microchip software and any 
     derivatives exclusively with Microchip products. It is your responsibility to comply with third party 
@@ -23,39 +23,14 @@
  */
 // DOM-IGNORE-END
 
-#include "sam.h"
-#include "port.h"
+#ifndef PRINT_H_
 
-void PORT_init(void) {
-	// configure one or more I/O pins as secured or non-secured.
-	PORT_SEC->Group[0].NONSEC.reg = 0x00000000;
-	
-	// configure PA22 as clock output for GCLK2
-	PORT_SEC->Group[0].DIRSET.reg = (1 << 22);
-	PORT_SEC->Group[0].WRCONFIG.reg =
-		  PORT_WRCONFIG_PMUX(MUX_PA22H_GCLK_IO2)
-		| PORT_WRCONFIG_WRPMUX
-		| PORT_WRCONFIG_PMUXEN
-		| PORT_WRCONFIG_WRPINCFG
-		| PORT_WRCONFIG_HWSEL
-		| ((1 << 6) & 0xffff);	
-	
-	// configure PA25 as RX for SERCOM0
-	PORT_SEC->Group[0].WRCONFIG.reg =
-		  PORT_WRCONFIG_PMUX(MUX_PA25C_SERCOM0_PAD3)
-		| PORT_WRCONFIG_WRPMUX
-		| PORT_WRCONFIG_PMUXEN
-		| PORT_WRCONFIG_WRPINCFG
-		| PORT_WRCONFIG_HWSEL
-		| ((1 << 9) & 0xffff);
-		
-	// configure PA24 as TX for SERCOM0
-	PORT_SEC->Group[0].DIRSET.reg = (1 << 24);
-	PORT_SEC->Group[0].WRCONFIG.reg =
-		  PORT_WRCONFIG_PMUX(MUX_PA24C_SERCOM0_PAD2)
-		| PORT_WRCONFIG_WRPMUX
-		| PORT_WRCONFIG_PMUXEN
-		| PORT_WRCONFIG_WRPINCFG
-		| PORT_WRCONFIG_HWSEL
-		| ((1 << 8) & 0xffff);
-}
+void print_init(void);
+
+#define PRINT_H_
+
+
+
+
+
+#endif /* PRINT_H_ */

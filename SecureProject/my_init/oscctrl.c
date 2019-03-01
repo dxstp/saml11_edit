@@ -27,10 +27,11 @@
 #include "oscctrl.h"
 
 void OSCCTRL_init(void) {
-	// set GCLK3 to OSC16M (4 MHz by default), divide by 4
+	// set GCLK3 to OSC16M (4 MHz by default), divide by 40
+	// 100 kHz (DPLL ref)
 	GCLK->GENCTRL[3].reg =
 		  GCLK_GENCTRL_SRC_OSC16M
-		| GCLK_GENCTRL_DIV(4)
+		| GCLK_GENCTRL_DIV(40)
 		| GCLK_GENCTRL_GENEN;
 	while(GCLK->SYNCBUSY.bit.GENCTRL3);
 	
@@ -42,11 +43,12 @@ void OSCCTRL_init(void) {
 		  GCLK_PCHCTRL_GEN_GCLK3
 		| GCLK_PCHCTRL_CHEN;
 			
-	// set the DPLL to multiply input by 96 to get 96 MHz	
-	OSCCTRL->DPLLRATIO.reg = OSCCTRL_DPLLRATIO_LDR(95);
+	// set the DPLL to multiply input by 960 to get 96 MHz	
+	OSCCTRL->DPLLRATIO.reg = OSCCTRL_DPLLRATIO_LDR(959);
 	while(OSCCTRL->DPLLSYNCBUSY.bit.DPLLRATIO);
 	
 	// enable DPLL
+	// 96 MHz
 	OSCCTRL->DPLLCTRLA.bit.ONDEMAND = 0;
 	OSCCTRL->DPLLCTRLA.bit.ENABLE = 1;
 	while(OSCCTRL->DPLLSYNCBUSY.bit.ENABLE);
@@ -54,6 +56,7 @@ void OSCCTRL_init(void) {
 	while(OSCCTRL->DPLLSTATUS.bit.LOCK != 1);
 	
 	// change source of GCLK0 to FDPLL96M, divided by 3
+	// 32 MHz (CPU)
 	GCLK->GENCTRL[0].reg =
 		  GCLK_GENCTRL_SRC_FDPLL96M
 		| GCLK_GENCTRL_DIV(3)
@@ -61,6 +64,7 @@ void OSCCTRL_init(void) {
 	while(GCLK->SYNCBUSY.bit.GENCTRL0);
 	
 	// change source of GCLK1 to FDPLL96M, divided by 2
+	// 48 MHz (Peripherals)
 	GCLK->GENCTRL[1].reg = 
 		  GCLK_GENCTRL_SRC_FDPLL96M
 		| GCLK_GENCTRL_DIV(2)
@@ -84,12 +88,4 @@ void clock_output_pa22(uint32_t source) {
 		| GCLK_GENCTRL_OE;
 	while(GCLK->SYNCBUSY.bit.GENCTRL2);
 	
-	PORT_SEC->Group[0].DIRSET.reg = (1 << 22);
-	PORT_SEC->Group[0].WRCONFIG.reg =
-		  PORT_WRCONFIG_PMUX(MUX_PA22H_GCLK_IO2)
-		| PORT_WRCONFIG_WRPMUX
-		| PORT_WRCONFIG_PMUXEN
-		| PORT_WRCONFIG_WRPINCFG
-		| PORT_WRCONFIG_HWSEL
-		| ((1 << 6) & 0xffff);	
 }
