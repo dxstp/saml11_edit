@@ -32,10 +32,10 @@
 #include "my_init/oscctrl.h"
 #include "my_init/sercom.h"
 #include "utils/print.h"
+#include "utils/delay.h"
 
 
 int main(void) {
-
 	PM_init();
 	NVMCTRL_init();
 	OSCCTRL_init();
@@ -53,7 +53,11 @@ int main(void) {
 	
 	NonSecureCall();
 
+	PORT_SEC->Group[0].DIRSET.reg = (1 << 7);
+
     while (1) {
+		delay_ms(100);
+		PORT_SEC->Group[0].OUTTGL.reg = (1 << 7);
     }
 }
 

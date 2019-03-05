@@ -23,11 +23,17 @@
  */
 // DOM-IGNORE-END
 
-
+#include <stdio.h>
 #include "sam.h"
-
+#include "utils/print.h"
+#include "utils/delay.h"
+#include "trustzone_veneer.h"
 
 int main(void) {
+	
+	print_init();
+	
+	printf("Hello Metal World!\n");
 	
     while (1) {
     }

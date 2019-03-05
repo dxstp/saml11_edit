@@ -25,6 +25,34 @@
 
 #include "sam.h"
 #include "trustzone_veneer.h"
+#include "sercom.h"
 
-void __attribute__((cmse_nonsecure_entry)) nsc_function(void) {
+#define WRITE_BUFFER_LENGTH 80
+
+int32_t __attribute__((cmse_nonsecure_entry)) nsc_SERCOM0_write(const char *const buf, const uint32_t length) {
+	char writeBuf[WRITE_BUFFER_LENGTH] = "NONSEC: ";
+	int writeIndex = 8;
+		
+	for (int readIndex = 0; readIndex < WRITE_BUFFER_LENGTH - 2 && readIndex < (int) length; readIndex++) {
+		if(buf[readIndex] >= 0x00 && buf[readIndex] <= 0x1f) {
+			continue;
+		} else {
+			writeBuf[writeIndex++] = buf[readIndex];
+		}
+	}
+	
+	writeBuf[writeIndex++] = '\r';
+	writeBuf[writeIndex++] = '\n';
+	writeBuf[writeIndex] = '\0';
+	
+	
+	return SERCOM0_write(writeBuf, writeIndex);
+}
+
+int32_t __attribute__((cmse_nonsecure_entry)) nsc_SERCOM0_read(char *const buf, const uint32_t length) {
+	return SERCOM0_read(buf, length);
+}
+
+int32_t __attribute__((cmse_nonsecure_entry)) nsc_SERCOM0_IsDataAvailable(void) {
+	return SERCOM0_IsDataAvailable();
 }

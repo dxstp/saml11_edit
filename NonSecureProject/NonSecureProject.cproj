@@ -64,7 +64,7 @@
     <ListValues>
       <Value>%24(PackRepoDir)\arm\cmsis\5.0.1\CMSIS\Include\</Value>
       <Value>%24(PackRepoDir)\Atmel\SAML11_DFP\1.0.91\include</Value>
-      <Value>../trustzone</Value>
+      <Value>../../SecureProject/trustzone</Value>
     </ListValues>
   </armgcc.compiler.directories.IncludePaths>
   <armgcc.compiler.optimization.level>Optimize (-O1)</armgcc.compiler.optimization.level>
@@ -108,15 +108,32 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\SecureProject\trustzone\trustzone_veneer.h">
+      <SubType>compile</SubType>
+      <Link>trustzone_veneer.h</Link>
+    </Compile>
     <Compile Include="Device_Startup\startup_saml11e16a.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="utils\delay.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="utils\delay.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="utils\print.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="utils\print.h">
+      <SubType>compile</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Device_Startup" />
+    <Folder Include="utils" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\SecureProject\Device_Startup\saml11e16a_nonsecure.ld">

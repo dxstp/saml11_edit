@@ -29,7 +29,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
-#include "../my_init/sercom.h"
+#include "trustzone_veneer.h"
 #include "print.h"
 
 
@@ -40,17 +40,8 @@ extern int _end;
  * redirect the stdio output for printf
  */
 void print_init(void) {
-	/* set STDIO to unbuffered */
-	setbuf(stdout, NULL);
+	setvbuf(stdout, NULL, _IOLBF, 80);
 	setbuf(stdin, NULL);
-}
-
-void secure_printf(char *string, ...) {
-	va_list argp;
-	fprintf(stdout, "SECURE: ");
-	va_start(argp, string);
-	vfprintf(stdout, string, argp);
-	va_end(argp);
 }
 
 int _read(int file, char *ptr, int len) {
@@ -60,7 +51,7 @@ int _read(int file, char *ptr, int len) {
 		return -1;
 	}
 
-	n = SERCOM0_read((char *)ptr, len);
+	n = nsc_SERCOM0_read((char *)ptr, len);
 	if (n < 0) {
 		return -1;
 	}
@@ -75,7 +66,7 @@ int _write(int file, char *ptr, int len) {
 		return -1;
 	}
 
-	n = SERCOM0_write((const char *)ptr, len);
+	n = nsc_SERCOM0_write((const char *)ptr, len);
 	if (n < 0) {
 		return -1;
 	}

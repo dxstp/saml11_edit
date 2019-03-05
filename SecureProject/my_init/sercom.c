@@ -82,7 +82,7 @@ int32_t SERCOM0_read(char *const buf, const uint32_t length) {
 	
 	do {
 		while(!(SERCOM0->USART.INTFLAG.bit.RXC));
-		buf[offset] = SERCOM1->USART.DATA.reg;
+		buf[offset] = SERCOM0->USART.DATA.reg;
 	} while (++offset < length);
 
 	return (int32_t)offset;

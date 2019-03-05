@@ -1,6 +1,6 @@
 // DOM-IGNORE-BEGIN
 /*
-    (c) 2019 Microchip Technology Inc. and its subsidiaries. 
+    (c) 2018 Microchip Technology Inc. and its subsidiaries. 
     
     Subject to your compliance with these terms, you may use Microchip software and any 
     derivatives exclusively with Microchip products. It is your responsibility to comply with third party 
@@ -23,13 +23,13 @@
  */
 // DOM-IGNORE-END
 
-#ifndef _TRUSTZONE_VENEER_H_
-#define _TRUSTZONE_VENEER_H_
+#ifndef DELAY_H_
+#define DELAY_H_
 
-#include <stdint.h>
 
-int32_t nsc_SERCOM0_write(const char *const buf, const uint32_t length);
-int32_t nsc_SERCOM0_read(char *const buf, const uint32_t length);
-int32_t nsc_SERCOM0_IsDataAvailable(void);
+#define CONF_CPU_FREQUENCY 32000000
 
-#endif /* _TRUSTZONE_VENEER_H_INCLUDED */
+void delay_ms(const uint16_t ms);
+void delay_cycles(const uint32_t cycles);
+
+#endif /* DELAY_H_ */
