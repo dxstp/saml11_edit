@@ -28,8 +28,13 @@
 
 #include <stdint.h>
 
+// writes a string to UART
 int32_t nsc_SERCOM0_write(const char *const buf, const uint32_t length);
+
+// reads a string from UART
 int32_t nsc_SERCOM0_read(char *const buf, const uint32_t length);
+
+// check if data is available for reading on UART
 int32_t nsc_SERCOM0_IsDataAvailable(void);
 
 #endif /* _TRUSTZONE_VENEER_H_INCLUDED */

@@ -27,8 +27,12 @@
 #include "systick.h"
 
 void SYSTICK_init(void) {
+	// systick is a 24bit timer, which is decrementing by CPU or external clock
+	// if it reaches zero, the reload value will by reloaded to the counter value
+	// setup reload value
 	SysTick->LOAD = 0x30D3FF;
 	
+	// setup systick to generate an interrupt and run from CPU clock
 	SysTick->CTRL =
 		  (1 << SysTick_CTRL_CLKSOURCE_Pos)
 		| (1 << SysTick_CTRL_TICKINT_Pos)

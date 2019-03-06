@@ -75,12 +75,14 @@ void OSCCTRL_init(void) {
 void clock_output_pa22(uint32_t source) {
 	uint32_t divider;
 	
+	// set divider to 1 if clock is 32k type, otherwise to 250
 	if(source == GCLK_GENCTRL_SRC_OSCULP32K || source == GCLK_GENCTRL_SRC_XOSC32K) {
 		divider = 1;
 	} else {
 		divider = 250;
 	}
 	
+	// configure GLCK2 to output selected clock to pin
 	GCLK->GENCTRL[2].reg =
 		  GCLK_GENCTRL_GENEN
 		| source
