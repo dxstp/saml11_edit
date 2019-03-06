@@ -217,6 +217,12 @@
     <Compile Include="my_init\sercom.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="my_init\systick.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="my_init\systick.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="trustzone\nonsecure_call.c">
       <SubType>compile</SubType>
     </Compile>

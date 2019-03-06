@@ -30,4 +30,6 @@ void NVIC_init(void) {
 	/* Setup NVIC Interrupt Target Non-Secure state */
 	NVIC->ITNS[0] = 0x0000;
 	NVIC->ITNS[1] = 0x0000;
+	
+	NVIC_EnableIRQ(SysTick_IRQn);
 }
