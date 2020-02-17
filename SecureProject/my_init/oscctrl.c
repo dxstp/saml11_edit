@@ -27,25 +27,49 @@
 #include "oscctrl.h"
 
 void OSCCTRL_init(void) {
-	// set GCLK3 to OSC16M (4 MHz by default), divide by 40
-	// 100 kHz (DPLL ref)
-	GCLK->GENCTRL[3].reg =
-		  GCLK_GENCTRL_SRC_OSC16M
-		| GCLK_GENCTRL_DIV(40)
-		| GCLK_GENCTRL_GENEN;
-	while(GCLK->SYNCBUSY.bit.GENCTRL3);
 	
-	// set the PLL reference clock to GCLK
-	OSCCTRL->DPLLCTRLB.reg = OSCCTRL_DPLLCTRLB_REFCLK_GCLK;
+	#define _USE_32K_OSC_ 1
 	
-	// set the DPLL reference clock to GCLK3
-	GCLK->PCHCTRL[0].reg =
-		  GCLK_PCHCTRL_GEN_GCLK3
-		| GCLK_PCHCTRL_CHEN;
-			
-	// set the DPLL to multiply input by 960 to get 96 MHz	
-	OSCCTRL->DPLLRATIO.reg = OSCCTRL_DPLLRATIO_LDR(959);
+	#if _USE_32K_OSC_ == 1
+	// enable external 32k crystal oscillator XOSC32K
+	// warning: rev B has errata UANA163-1, oscillator probably won't start below 0°C
+	OSC32KCTRL->XOSC32K.reg =
+		  OSC32KCTRL_XOSC32K_STARTUP(0x04)
+		| OSC32KCTRL_XOSC32K_EN32K
+		| OSC32KCTRL_XOSC32K_XTALEN
+		| OSC32KCTRL_XOSC32K_ENABLE;
+	
+	// set the PLL reference clock to XOSC32K
+	OSCCTRL->DPLLCTRLB.reg =
+	OSCCTRL_DPLLCTRLB_REFCLK_XOSC32K;
+	
+	// set the DPLL to multiply input by 2930 to get 96 MHz
+	OSCCTRL->DPLLRATIO.reg = OSCCTRL_DPLLRATIO_LDR(2929);
 	while(OSCCTRL->DPLLSYNCBUSY.bit.DPLLRATIO);
+	
+	// wait for 32k crystal to stabilize
+	while(OSC32KCTRL->STATUS.bit.XOSC32KRDY == 0);
+	
+	#else
+	// enable external crystal oscillator XOSC (12 MHz)
+	OSCCTRL->XOSCCTRL.reg =
+		  OSCCTRL_XOSCCTRL_AMPGC
+		| OSCCTRL_XOSCCTRL_GAIN(0x03)
+		| OSCCTRL_XOSCCTRL_XTALEN
+		| OSCCTRL_XOSCCTRL_ENABLE;
+		
+	// set the PLL reference clock to XOSC (divided by 4)
+	OSCCTRL->DPLLCTRLB.reg =
+		  OSCCTRL_DPLLCTRLB_REFCLK_XOSC
+		| OSCCTRL_DPLLCTRLB_DIV(1);
+		
+	// set the DPLL to multiply input by 24 to get 96 MHz
+	OSCCTRL->DPLLRATIO.reg = OSCCTRL_DPLLRATIO_LDR(23);
+	while(OSCCTRL->DPLLSYNCBUSY.bit.DPLLRATIO);
+	
+	// wait for 12 MHz crystal to stabilize
+	while(OSCCTRL->STATUS.bit.XOSCRDY == 0);
+	#endif
 	
 	// enable DPLL
 	// 96 MHz
@@ -69,7 +93,7 @@ void OSCCTRL_init(void) {
 		  GCLK_GENCTRL_SRC_FDPLL96M
 		| GCLK_GENCTRL_DIV(2)
 		| GCLK_GENCTRL_GENEN;
-		while(GCLK->SYNCBUSY.bit.GENCTRL1);
+	while(GCLK->SYNCBUSY.bit.GENCTRL1);
 }
 
 void clock_output_pa22(uint32_t source) {
