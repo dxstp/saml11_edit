@@ -1,6 +1,6 @@
 // DOM-IGNORE-BEGIN
 /*
-    (c) 2019 Microchip Technology Inc. and its subsidiaries. 
+    (c) 2020 Microchip Technology Inc. and its subsidiaries. 
     
     Subject to your compliance with these terms, you may use Microchip software and any 
     derivatives exclusively with Microchip products. It is your responsibility to comply with third party 
@@ -23,58 +23,11 @@
  */
 // DOM-IGNORE-END
 
-#include <stdint.h>
-#include "sam.h"
-#include "trustzone/nonsecure_call.h"
-#include "my_init/nvmctrl.h"
-#include "my_init/nvic.h"
-#include "my_init/pm.h"
-#include "my_init/port.h"
-#include "my_init/oscctrl.h"
-#include "my_init/sercom.h"
-#include "my_init/systick.h"
-#include "my_init/tc.h"
-#include "utils/print.h"
-#include "utils/delay.h"
+#ifndef TC_H_
+#define TC_H_
+
+void TC_init(void);
 
 
-int main(void) {
-	PM_init();
-	NVMCTRL_init();
-	OSCCTRL_init();
-	
-	clock_output_pa22(GCLK_GENCTRL_SRC_FDPLL96M);
-	//clock_output_pa22(GCLK_GENCTRL_SRC_OSC16M);
-	//clock_output_pa22(GCLK_GENCTRL_SRC_OSCULP32K);
-	
-	NVIC_init();
-	SYSTICK_init();
-	PORT_init();
-	SERCOM0_init();
-	TC_init();
-	print_init();
-	
-	secure_printf("Hello Metal World!\r\n");
-	
-	NonSecureCall();
 
-    while (1) {
-    }
-}
-
-void HardFault_Handler(void) {
-	while(1);
-}
-
-void SysTick_Handler(void) {
-	static uint32_t count = 0;
-	
-	PORT_SEC->Group[0].DIRSET.reg = (1 << 7);
-	PORT_SEC->Group[0].OUTTGL.reg = (1 << 7);
-	
-	if(++count == 100) {
-		count = 0;
-		secure_printf("SYSTICK called 100 times.\r\n");
-	}
-}
-
+#endif /* TC_H_ */

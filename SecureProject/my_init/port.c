@@ -58,4 +58,14 @@ void PORT_init(void) {
 		| PORT_WRCONFIG_WRPINCFG
 		| PORT_WRCONFIG_HWSEL
 		| ((1 << 8) & 0xffff);
+		
+	// configure PA25 as WO1 for TC1
+	PORT_SEC->Group[0].DIRSET.reg = (1 << 25);
+	PORT_SEC->Group[0].WRCONFIG.reg =
+		  PORT_WRCONFIG_PMUX(MUX_PA25E_TC1_WO1)
+		| PORT_WRCONFIG_WRPMUX
+		| PORT_WRCONFIG_PMUXEN
+		| PORT_WRCONFIG_WRPINCFG
+		| PORT_WRCONFIG_HWSEL
+		| ((1 << 9) & 0xffff);
 }
